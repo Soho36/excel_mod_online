@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Results</title>
+</head>
+<body>
+    <h1>Upload Results</h1>
+    <ul>
+        {% for file in output_files %}
+            <li><a href="/download/{{ file | basename }}">{{ file | basename }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="/">Upload more files</a>
+</body>
+</html>

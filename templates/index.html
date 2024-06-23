@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Files</title>
+    <style>
+        .upload-zone {
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+        .hidden-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-zone" id="upload-zone">
+        Drag & Drop your files here or click to upload
+    </div>
+    <form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
+        <input type="file" name="files[]" multiple class="hidden-input" id="file-input">
+        <input type="hidden" name="sheet_name" value="מפה לביצוע">
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = '#000';
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.style.borderColor = '#ddd';
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            document.getElementById('upload-form').submit();
+        });
+
+        fileInput.addEventListener('change', () => {
+            document.getElementById('upload-form').submit();
+        });
+    </script>
+</body>
+</html>
